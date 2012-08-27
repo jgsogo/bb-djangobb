@@ -6,7 +6,6 @@
 {% block title %} / {{ forum.name }}{% endblock %}
 {% block content %}
 {% autopaginate topics forum_settings.FORUM_PAGE_SIZE %}
-{{ topics }}
 <div class="linkst">
     <div class="inbox">
         <div class="pagelink conl">{% paginate %}</div>
