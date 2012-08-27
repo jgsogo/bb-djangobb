@@ -11,7 +11,7 @@ from django.utils.html import escape
 from django.utils.hashcompat import md5_constructor
 from django.contrib.humanize.templatetags.humanize import naturalday
 
-from pagination.templatetags.pagination_tags import paginate
+from linaro_django_pagination.templatetags.pagination_tags import paginate
 
 from djangobb_forum.models import Report
 from djangobb_forum import settings as forum_settings
