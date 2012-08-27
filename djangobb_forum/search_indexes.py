@@ -1,5 +1,5 @@
 from haystack.indexes import *
-from haystack import site
+from haystack import indexes
 
 import djangobb_forum.models as models
 
@@ -11,4 +11,5 @@ class PostIndex(RealTimeSearchIndex):
     category = CharField(model_attr='topic__forum__category__name')
     forum = IntegerField(model_attr='topic__forum__pk')
 
-site.register(models.Post, PostIndex)
+    def get_model(self):
+        return models.Post
