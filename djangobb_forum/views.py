@@ -131,7 +131,7 @@ def search(request):
 
     context = {}
 
-    #FIXME: show_user for anonymous raise exception, 
+    #FIXME: show_user for anonymous raise exception,
     #django bug http://code.djangoproject.com/changeset/14087 :|
     groups = request.user.groups.all() or [] #removed after django > 1.2.3 release
     topics = Topic.objects.filter(
@@ -318,7 +318,7 @@ def show_topic(request, topic_id, full=True):
     * Display a topic
     * save a reply
     * save a poll vote
-    
+
     TODO: Add reply in lofi mode
     """
     post_request = request.method == "POST"
