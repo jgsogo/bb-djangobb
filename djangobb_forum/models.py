@@ -43,12 +43,18 @@ PRIVACY_CHOICES = (
     (2, _(u'Hide your e-mail address and disallow form e-mail.')),
 )
 
-MARKUP_CHOICES = [('bbcode', 'bbcode')]
-try:
-    import markdown
-    MARKUP_CHOICES.append(("markdown", "markdown"))
-except ImportError:
-    pass
+MARKUP_CHOICES = [  ('bbcode', _('bbcode')),
+                    ('rest', _('ReStructured Text')),
+                    ('html', _('HTML/Plain Text')),
+                    ('markdown', _('Markdown')),
+                    ('textile', _('Textile')),
+                ]
+MARKUP_HELP = _("""Select the type of markup you are using in this article.
+<ul>
+<li><a href="http://daringfireball.net/projects/markdown/basics" target="_blank">Markdown Guide</a></li>
+<li><a href="http://docutils.sourceforge.net/docs/user/rst/quickref.html" target="_blank">ReStructured Text Guide</a></li>
+<li><a href="http://thresholdstate.com/articles/4312/the-textile-reference-manual" target="_blank">Textile Guide</a></li>
+</ul>""")
 
 path = os.path.join(settings.STATIC_ROOT, 'djangobb_forum', 'themes')
 if os.path.exists(path):
@@ -313,7 +319,7 @@ class Profile(models.Model):
     show_smilies = models.BooleanField(_('Show smilies'), blank=True, default=True)
     privacy_permission = models.IntegerField(_('Privacy permission'), choices=PRIVACY_CHOICES, default=1)
     auto_subscribe = models.BooleanField(_('Auto subscribe'), help_text=_("Auto subscribe all topics you have created or reply."), blank=True, default=False)
-    markup = models.CharField(_('Default markup'), max_length=15, default=forum_settings.DEFAULT_MARKUP, choices=MARKUP_CHOICES)
+    markup = models.CharField(_('Default markup'), max_length=15, default=forum_settings.DEFAULT_MARKUP, choices=MARKUP_CHOICES, help_text=MARKUP_HELP)
     post_count = models.IntegerField(_('Post count'), blank=True, default=0)
 
     objects = ProfileManager()
