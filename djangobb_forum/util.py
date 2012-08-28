@@ -15,6 +15,7 @@ from django.utils.simplejson import JSONEncoder
 from django.template.defaultfilters import urlize as django_urlize
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.contrib.sites.models import Site
+from django.contrib.markup.templatetags import markup as markup_parser
 
 from djangobb_forum import settings as forum_settings
 
@@ -164,7 +165,7 @@ class ExcludeTagsHTMLParser(HTMLParser):
 def urlize(data):
     """
     Urlize plain text links in the HTML contents.
-   
+
     Do not urlize content of A and CODE tags.
     """
 
@@ -217,7 +218,13 @@ def convert_text_to_html(text, markup):
     if markup == 'bbcode':
         text = render_bbcode(text)
     elif markup == 'markdown':
-        text = markdown.markdown(text, safe_mode='escape')
+        text = markup_parser.markdown(text, safe_mode='escape')
+    elif markup == 'rest':
+        text = markup_parser.restructuredtext(text)
+    elif markup == 'textile':
+        text = markup_parser.textile(text)
+    elif markup == 'html':
+        text = text
     else:
         raise Exception('Invalid markup property: %s' % markup)
     return urlize(text)
