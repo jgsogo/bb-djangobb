@@ -343,7 +343,7 @@ class ReputationForm(forms.ModelForm):
         super(ReputationForm, self).__init__(*args, **kwargs)
         self.fields['post'].widget = forms.HiddenInput()
         self.fields['sign'].widget = forms.HiddenInput()
-        self.fields['reason'].widget = forms.Textarea(attrs={'class':'markup'})
+        self.fields['reason'].widget = forms.Textarea()
 
     def clean_to_user(self):
         name = self.cleaned_data['to_user']
